@@ -21,20 +21,22 @@ FibonacciInterpt::~FibonacciInterpt() {
 }
 
 bool FibonacciInterpt::IsPrime(unsigned long long n) {
-	vector<bool> probableFactor;
-	unsigned long long factor;
+	unsigned long long factor;		// factor to test
+	bool isPrime = false;			// final result
 
-	// Number of probable factors
-	unsigned long long nProbFact = static_cast<unsigned long long>(sqrt(static_cast<double>(n)));
+	if (n > 1) {
+		// Number of probable factors
+		unsigned long long nProbFact = static_cast<unsigned long long>(sqrt(static_cast<double>(n)));
 
-	probableFactor = vector<bool>(true, nProbFact - 1);	// excludes 1 from probable factor list
+		factor = 2;
+		while ((factor <= nProbFact) && (n % factor != 0)) {
+			++factor;
+		}
 
-	factor = 2;
-	while ((factor <= nProbFact) && (n % factor != 0)) {
-		++factor;
+		isPrime = (factor > nProbFact);	// n is a prime number if no factor is found
 	}
 
-	return (factor > nProbFact);
+	return isPrime;
 }
 
 string FibonacciInterpt::Fib2BuzzFizz(unsigned long long fib) {
